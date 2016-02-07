@@ -1,0 +1,164 @@
+<html>
+<head>
+<title>Main Screen Controls</title>
+
+<style>
+
+@font-face {
+    font-family: 'sansationregular';
+    src: url('Sansation-Regular-webfont.eot');
+    src: url('Sansation-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('Sansation-Regular-webfont.woff') format('woff'),
+         url('Sansation-Regular-webfont.ttf') format('truetype'),
+         url('Sansation-Regular-webfont.svg#sansationregular') format('svg');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
+
+
+body {
+  background-color: black;
+    font-family: 'sansationregular';
+}
+
+.button {
+   border: 0px;
+   background: #aaa;
+   padding: 12px 24px;
+   -webkit-border-radius: 17px;
+   -moz-border-radius: 17px;
+   border-radius: 17px;
+   color: #000000;
+   font-size: 22px;
+   font-family: sansationregular,Helvetica, Arial, Sans-Serif;
+   text-decoration: none;
+   vertical-align: middle;
+   min-width: 270px;
+   }
+.button:hover {
+   background: #ffffff;
+   color: #000;
+   }
+.button:active {
+   background: #000000;
+   }
+   
+.txtlbl {
+   color: white;
+   text-decoration: none;
+   text-align: center;
+   vertical-align: middle;
+   min-width: 250px;
+   max-width: 250px;
+}
+</style>
+</head>
+<body>
+<!--
+ 
+-->
+<span class="txtlbl">Main Screen Controls</span>
+<br /><br />
+<button id="btn1" class="button">Front</button>
+<br /><br />
+<button id="btn2" class="button">Rear</button>
+<br /><br />
+<button id="btn3" class="button">Port/Left</button>
+<br /><br />
+<button id="btn4" class="button">Starboard/Right</button>
+<br /><br />
+<button id="btn5" class="button">SRS</button>
+<br /><br />
+<button id="btn6" class="button">LRS</button>
+<br /><br />
+
+
+<script src="jquery-1.12.0.min.js"></script>
+<script>
+server=""; //"http://localhost:8080";
+
+$(document).ready(function(){
+    $("#btn1").click(function(){ 
+      msfront();
+    });
+    $("#btn2").click(function(){ 
+      msrear();
+    });
+    $("#btn3").click(function(){ 
+      msleft();
+    });
+    $("#btn4").click(function(){ 
+      msright();
+    });
+    $("#btn5").click(function(){ 
+      mssrs();
+    });
+    $("#btn6").click(function(){ 
+      mslrs();
+    });
+});
+
+$(document).keydown(function(e) {
+  if(e.which == 49) { //1
+    msfront();
+  }
+  if(e.which == 50) { //2
+    msrear();
+  }
+  if(e.which == 51) { //3
+    msleft();
+  }
+  if(e.which == 52) { //4
+    msright();
+  }
+  if(e.which == 53) { //5
+    mssrs();
+  }
+  if(e.which == 54) { //6
+    mslrs();
+  }
+});
+  
+  
+
+  
+  function msfront() {
+    var mss = "Front";
+    url = server+'/set.lua?commandMainScreenSetting("'+mss+'")';
+    $.get( url );
+  }
+  
+  function msrear() {
+    var mss = "Back";
+    url = server+'/set.lua?commandMainScreenSetting("'+mss+'")';
+    $.get( url );
+  }
+  
+  function msleft() {
+    var mss = "Left";
+    url = server+'/set.lua?commandMainScreenSetting("'+mss+'")';
+    $.get( url );
+  }
+  
+  function msright() {
+    var mss = "Right";
+    url = server+'/set.lua?commandMainScreenSetting("'+mss+'")';
+    $.get( url );
+  }
+  
+  function mssrs() {
+    var mss = "Tactical";
+    url = server+'/set.lua?commandMainScreenSetting("'+mss+'")';
+    $.get( url );
+  }
+  
+  function mslrs() {
+    mss = "LongRange";
+    var url = server+'/set.lua?commandMainScreenSetting("'+mss+'")';
+    $.get( url );
+  }
+</script>
+</body>
+</html>

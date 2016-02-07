@@ -1,0 +1,174 @@
+<html>
+
+<script>
+
+ var server="" //10.0.2.15"
+ 
+ //------------
+ var url= "/get.lua?alert=getAlertLevel()"   
+   
+// Create the XHR object.
+function createCORSRequest(method, url) {
+  var xhr = new XMLHttpRequest();
+  if ("withCredentials" in xhr) {
+    // XHR for Chrome/Firefox/Opera/Safari.
+    xhr.open(method, url, true);
+  } else if (typeof XDomainRequest != "undefined") {
+    // XDomainRequest for IE.
+    xhr = new XDomainRequest();
+    xhr.open(method, url);
+  } else {
+    // CORS not supported.
+    xhr = null;
+  }
+  return xhr;
+}
+
+
+function showStatus(status) {
+  document.getElementById('container').innerHTML="";
+
+  console.log(status);
+  var arr = JSON.parse(status);
+  var element = document.getElementById('container');
+  var alertimage = document.getElementById('alertdisplay);
+  var alerttext = document.getElementById('textdisplay);
+  if (arr["alert"] == "RED ALERT") {
+    element.style.background = 'red';
+    alertimage.style.display='block';
+    alerttext.innerHTML="RED ALERT";
+  } else if  (arr["alert"] == "YELLOW ALERT"){
+  element.style.background = 'yellow';
+  alertimage.style.display='block';
+  alerttext.innerHTML="YELLOW ALERT";
+  } else if  (arr["alert"] == "Normal") {
+   element.style.background = 'black';
+   alertimage.style.display='none';
+   alerttext.innerHTML="";
+  } else {
+   element.style.background = 'black';
+   alertimage.style.display='none';
+   alerttext.innerHTML="";
+  }
+}
+
+// Make the actual CORS request.
+function makeCorsRequest() {
+  // All HTML5 Rocks properties support CORS.
+  //var url = 'http://updates.html5rocks.com';
+
+  var xhr = createCORSRequest('GET', url);
+  if (!xhr) {
+    alert('CORS not supported');
+    return;
+  }
+
+  // Response handlers.
+  xhr.onload = function() {
+    var status = xhr.responseText;
+    var title = showStatus(status);
+  };
+
+  xhr.onerror = function() {
+    console.log('Woops, there was an error making the request.');
+    document.getElementById('container').innerHTML="Error Getting Status";
+  };
+
+  xhr.send();
+}
+
+function getjson() {
+  var xhr = createCORSRequest('GET', url);
+  if (!xhr) {
+    console.log("CORS not supported");
+    //throw new Error('CORS not supported');
+  }
+}
+
+ 
+ //makeCorsRequest(); 
+ var timerId = setInterval(makeCorsRequest, 1000);
+   
+</script>
+<style>
+body {
+  color: white;
+  background-color: black;
+  height: 100%;
+  margin: 0px;
+  padding: 0px; 
+  font-family: arial, helvetica, sans-serif;
+}
+#container {
+  height: 100%
+}
+
+
+img {
+  -webkit-animation: fade 3s infinite;
+  animation: fade 3s infinite;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  
+}
+
+#alertdisplay {
+  display: none;
+   width: 600px;
+   height: 600px;
+   position: absolute;
+   left: 50%;
+   top: 50%; 
+   margin-left: -300px;
+   margin-top: -300px;
+}
+
+#textdisplay {
+  display: block;
+   width: 600px;
+   height: 600px;
+   position: absolute;
+   left: 50%;
+   top: 50%; 
+}
+
+@-webkit-keyframes fade {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+</style>
+</head>
+<body>
+<div id="container">
+<!-- copy alert_overlay.png from resources -->
+<img src="alert_overlay.png" alt="Alert" id="alertdisplay">
+<span id="textdisplay"></span>
+</div>
+</body>
+</html>

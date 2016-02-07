@@ -1,0 +1,3 @@
+alert_overlay.png from Empty Epsilon http://github.com/daid/EmptyEpsilon
+
+Web fonts are from http://www.fontsquirrel.com/fonts/Sansation

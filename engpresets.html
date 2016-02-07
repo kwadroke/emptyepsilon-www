@@ -1,0 +1,184 @@
+<html>
+<head>
+<title>Engineering Presets</title>
+
+<style>
+
+@font-face {
+    font-family: 'sansationregular';
+    src: url('Sansation-Regular-webfont.eot');
+    src: url('Sansation-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('Sansation-Regular-webfont.woff') format('woff'),
+         url('Sansation-Regular-webfont.ttf') format('truetype'),
+         url('Sansation-Regular-webfont.svg#sansationregular') format('svg');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
+
+
+body {
+  background-color: black;
+    font-family: 'sansationregular';
+}
+
+.button {
+   border: 0px;
+   background: #aaa;
+   padding: 12px 24px;
+   -webkit-border-radius: 17px;
+   -moz-border-radius: 17px;
+   border-radius: 17px;
+   color: #000000;
+   font-size: 22px;
+   font-family: sansationregular,Helvetica, Arial, Sans-Serif;
+   text-decoration: none;
+   vertical-align: middle;
+   min-width: 270px;
+   }
+.button:hover {
+   background: #ffffff;
+   color: #000;
+   }
+.button:active {
+   background: #000000;
+   }
+   
+.txtlbl {
+   color: white;
+   text-decoration: none;
+   text-align: center;
+   vertical-align: middle;
+   min-width: 250px;
+   max-width: 250px;
+}
+</style>
+</head>
+<body>
+<!--
+commandSetSystemPower(ESystem system, float)
+commandSetSystemCoolant(ESystem system, float)
+getSystemHeat(ESystem system)
+getSystemHealth(ESystem system)
+
+
+src/shipTemplate.cpp
+if (str == "reactor")
+        es = SYS_Reactor;
+    else if (str == "beamweapons")
+        es = SYS_BeamWeapons;
+    else if (str == "missilesystem")
+        es = SYS_MissileSystem;
+    else if (str == "maneuver")
+        es = SYS_Maneuver;
+    else if (str == "impulse")
+        es = SYS_Impulse;
+    else if (str == "warp")
+        es = SYS_Warp;
+    else if (str == "jumpdrive")
+        es = SYS_JumpDrive;
+    else if (str == "frontshield")
+        es = SYS_FrontShield;
+    else if (str == "rearshield")
+        es = SYS_RearShield;
+
+
+Max Power: 4.0
+Max Coolant: 10.0
+
+Max Power for Max Coolant:  
+-->
+<span class="txtlbl">Engineering Presets</span>
+<br /><br />
+<button id="btn1" class="button">Standard</button>
+<br /><br />
+<button id="btn5" class="button">Standard + Charge</button>
+<br /><br />
+<button id="btn2" class="button">Cruise</button>
+<br /><br />
+<button id="btn3" class="button">Battle</button>
+<br /><br />
+<button id="btn4" class="button">Emergency Recharge</button>
+<br /><br />
+
+
+<script src="jquery-1.12.0.min.js"></script>
+<script>
+server=""; //http://localhost:8080";
+
+$(document).ready(function(){
+    $("#btn1").click(function(){ //Standard Mode
+      modestandard();
+    });
+    $("#btn2").click(function(){ // Not used
+      modecruise();
+    });
+    $("#btn3").click(function(){ //Cruise
+      modebattle();
+    });
+    $("#btn4").click(function(){ //Battle
+      modelowpower();
+    });
+    $("#btn5").click(function(){ //Low Power
+      modestdchg();
+    });
+});
+
+$(document).keydown(function(e) {
+  if(e.which == 49) { //1
+    modestandard();
+  }
+  if(e.which == 50) { //2
+    modecruise();
+  }
+  if(e.which == 51) { //3
+    modebattle();
+  }
+  if(e.which == 52) { //4
+    modelowpower();
+  }
+  if(e.which == 53) { //5
+    modestdchg();
+  }
+});
+  
+  
+  powerdefault='commandSetSystemPower("reactor",1.0)&commandSetSystemPower("maneuver",1.0)&commandSetSystemPower("jumpdrive",1.0)&commandSetSystemPower("frontshield",1.0)&commandSetSystemPower("rearshield",1.0)&commandSetSystemPower("beamweapons",1.0)&commandSetSystemPower("missilesystem",1.0)&commandSetSystemPower("warp",1.0)&commandSetSystemPower("impulse",1.0)';
+  
+  powerdefaultnoreactor='commandSetSystemPower("jumpdrive",1.0)&commandSetSystemPower("frontshield",1.0)&commandSetSystemPower("rearshield",1.0)&commandSetSystemPower("beamweapons",1.0)&commandSetSystemPower("missilesystem",1.0)&commandSetSystemPower("warp",1.0)&commandSetSystemPower("impulse",1.0)';
+  //All but reactor
+  powerzero='commandSetSystemPower("maneuver",0.0)&commandSetSystemPower("jumpdrive" ,0.0)&commandSetSystemPower("frontshield",0.0)&commandSetSystemPower("rearshield",0.0)&commandSetSystemPower("beamweapons",0.0)&commandSetSystemPower("missilesystem",0.0)&commandSetSystemPower("warp" ,0.0)&commandSetSystemPower("impulse",0.0)';
+  coolantdefault='commandSetSystemCoolant("reactor",0.0)&commandSetSystemCoolant("maneuver",0.0)&commandSetSystemCoolant("jumpdrive" ,0.0)&commandSetSystemCoolant("frontshield" ,0.0)&commandSetSystemCoolant("rearshield",0.0)&commandSetSystemCoolant("beamweapons",0.0)&commandSetSystemCoolant("missilesystem",0.0)&commandSetSystemCoolant("warp",0.0)&commandSetSystemCoolant("impulse",0.0)';
+  //All but reactor
+  coolantzero='commandSetSystemCoolant("reactor",0.0)&commandSetSystemCoolant("maneuver",0.0)&commandSetSystemCoolant("jumpdrive" ,0.0)&commandSetSystemCoolant("frontshield",0.0)&commandSetSystemCoolant("rearshield",0.0)&commandSetSystemCoolant("beamweapons",0.0)&commandSetSystemCoolant("missilesystem",0.0)&commandSetSystemCoolant("warp",0.0)&commandSetSystemCoolant("impulse",0.0)';
+  
+  
+  function modelowpower() {
+    url = server+'/set.lua?commandSetSystemPower("reactor",2.0)&commandSetSystemCoolant("reactor",7.0)&'+powerzero+'&'+coolantzero;
+    $.get( url );
+  }
+  
+  function modecruise() {
+    url = server+'/set.lua?commandSetSystemPower("reactor",1.0)&commandSetSystemPower("maneuver",1.0)&commandSetSystemPower("jumpdrive",1.0)&commandSetSystemPower("frontshield",0.0)&commandSetSystemPower("rearshield",0.0)&commandSetSystemPower("beamweapons",0.0)&commandSetSystemPower("missilesystem",0.3)&commandSetSystemPower("warp",1.0)&commandSetSystemPower("impulse",1.0)&'+coolantzero;
+    $.get( url );
+  }
+  
+  function modebattle() {
+    url = server+'/set.lua?commandSetSystemPower("maneuver",1.5)&commandSetSystemCoolant("frontshield",5.0)&commandSetSystemCoolant("rearshield",5.0)&commandSetSystemCoolant("maneuver",5.0)&commandSetSystemPower("reactor",1.0)&commandSetSystemCoolant("reactor",0.0)&commandSetSystemPower("frontshield",1.5)&commandSetSystemPower("rearshield",1.5)&commandSetSystemPower("impulse",1.5)&commandSetSystemCoolant("impulse",5.0)';
+    
+    $.get( url );
+  }
+  
+  function modestandard() {
+    url = server+'/set.lua?'+powerdefault+'&'+coolantdefault;
+    $.get( url );
+  }
+  
+  function modestdchg() {
+      url = server+'/set.lua?commandSetSystemPower("reactor",2.25)&commandSetSystemCoolant("reactor",10.0)&'+powerdefaultnoreactor;
+      $.get( url );
+  }
+</script>
+</body>
+</html>
