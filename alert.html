@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+
+
+<!--
+add 
+?shields=1
+to the url to toggle shields on when Red Alert is enabled/disabled
+
+-->
+
+
+
+<style>
+
+@font-face {
+  font-family: 'sansationregular';
+  src: url('Sansation-Regular-webfont.eot');
+  src: url('Sansation-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+       url('Sansation-Regular-webfont.woff') format('woff'),
+       url('Sansation-Regular-webfont.ttf') format('truetype'),
+       url('Sansation-Regular-webfont.svg#sansationregular') format('svg');
+  font-weight: bold;
+  font-style: normal;
+
+}
+
+body {
+  color: white;
+  background-color: black;
+  height: 100%;
+  /* width: 100%; */
+  margin: 0px;
+  padding: 5px; 
+  background-color: black;
+  font-family: 'sansationregular';
+}
+
+img#alertdisplay {
+  
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  -webkit-animation: fade 2s alternate infinite;
+  animation: fade 2s alternate infinite;
+   display: block;
+}
+
+
+
+@-webkit-keyframes fade {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+
+}
+
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+
+#textdisplay {
+  font-size: 40px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
+.button {
+  border: 0px;
+  background: #aaa;
+  padding: 12px 24px;
+  -webkit-border-radius: 17px;
+  -moz-border-radius: 17px;
+  border-radius: 17px;
+  color: #000000;
+  font-size: 22px;
+  font-family: sansationregular,Helvetica, Arial, Sans-Serif;
+  text-decoration: none;
+  vertical-align: middle;
+  min-width: 250px;
+}
+
+.button:hover {
+  background: #ffffff;
+  color: #000;
+
+.button:active {
+  background: #000000;
+}
+   
+.txtlbl {
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  vertical-align: middle;
+  min-width: 250px;
+  max-width: 250px;
+}
+
+
+#container {
+  height: 100%;
+  width: 100%;
+}
+
+
+
+
+</style>
+
+<script src="jquery-1.12.0.min.js"></script>
+<script>
+
+function get(name){
+   if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
+      return decodeURIComponent(name[1]);
+}
+
+checkurl = get('shields');
+ 
+if (checkurl==1) {
+  turnshieldsonoff = 1;
+} else {
+ turnshieldsonoff = 0;
+}
+
+ var setshields=3; //set a value that's not used
+ var shieldstatus="none"; 
+ var geturl= "/get.lua?alert=getAlertLevel()";
+ //var seturl = "/set.lua?alert=commandSetShields("+setshields+")";
+
+function showstatus() {
+  $.getJSON( geturl , function(result) {
+    console.log(result.alert)
+
+
+    $('#textdisplay').html();
+    
+    if (result.alert == "RED ALERT") {
+      $('body').css("background-color", "red");
+      $('#alertdisplay').css("display", "block");
+      $('#textdisplay').html(result.alert);
+    } else if  (result.alert == "YELLOW ALERT"){
+      $('body').css("background-color", "yellow");
+      $('#alertdisplay').css("display", "block");
+        $('#alertdisplay').css("-webkit-animation",  "fade 3s alternate infinite");
+  $('#alertdisplay').css("animation", "fade 3s alternate infinite");
+      $('#textdisplay').html(result.alert);
+    } else if (result.alert == "Normal") {
+      $('body').css("background-color", "black");
+      $('#alertdisplay').css("display", "none");
+      $('#textdisplay').html("<b style='color: green' >CONDITION GREEN</b>");
+      
+    } else {
+      $('body').css("background-color", "black");
+      $('#alertdisplay').css("display", "none");
+      $('#textdisplay').html("<b style='color: green' >CONDITION GREEN</b>");
+    }
+    
+    if (turnshieldsonoff == 1) {
+      shields(result.alert);
+    } else {
+    console.log("Not Setting shields due to turnshieldsonoff not being enabled");
+    }
+    console.log($('#textdisplay').html());
+ });
+}
+
+function shields(status) {
+    if (status != shieldstatus) {
+      if (status == "RED ALERT") {
+        console.log("Turning on Shields");
+        setshields=true;
+      } else {
+        console.log("Turning off Shields");
+        setshields=false;
+      }
+      shieldstatus = status;
+      $.get("/set.lua?commandSetShields("+setshields+")");
+      console.log(setshields);
+    }
+}
+
+ 
+ var timerId = setInterval(showstatus, 1000);
+   
+</script>
+
+</head>
+<body>
+
+<img src="alert_overlay.png" alt="Alert" id="alertdisplay" />
+
+<div id="textdisplay" >INITIALIZING</div>
+
+</body>
+
+</html>

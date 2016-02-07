@@ -1,0 +1,107 @@
+@font-face {
+  font-family: 'sansationregular';
+  src: url('Sansation-Regular-webfont.eot');
+  src: url('Sansation-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+       url('Sansation-Regular-webfont.woff') format('woff'),
+       url('Sansation-Regular-webfont.ttf') format('truetype'),
+       url('Sansation-Regular-webfont.svg#sansationregular') format('svg');
+  font-weight: bold;
+  font-style: normal;
+
+}
+
+body {
+  color: white;
+  background-color: black;
+  height: 100%;
+  /* width: 100%; */
+  margin: 0px;
+  padding: 5px; 
+  background-color: black;
+  font-family: 'sansationregular';
+}
+
+img#alertdisplay {
+  
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  -webkit-animation: fade 2s alternate infinite;
+  animation: fade 2s alternate infinite;
+   display: block;
+}
+
+
+
+@-webkit-keyframes fade {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+
+}
+
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+
+#textdisplay {
+  font-size: 40px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
+.button {
+  border: 0px;
+  background: #aaa;
+  padding: 12px 24px;
+  -webkit-border-radius: 17px;
+  -moz-border-radius: 17px;
+  border-radius: 17px;
+  color: #000000;
+  font-size: 22px;
+  font-family: sansationregular,Helvetica, Arial, Sans-Serif;
+  text-decoration: none;
+  vertical-align: middle;
+  min-width: 270px;
+}
+
+.button:hover {
+  background: #ffffff;
+  color: #000;
+
+.button:active {
+  background: #000000;
+}
+   
+.txtlbl {
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  vertical-align: middle;
+  min-width: 250px;
+  max-width: 250px;
+}
+
+
+#container {
+  height: 100%;
+  width: 100%;
+}
+
+
+

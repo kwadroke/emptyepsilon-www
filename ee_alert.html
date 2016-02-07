@@ -1,8 +1,11 @@
 <html>
+<head>
+
+<link href="style.css" media="all" rel="stylesheet" />
 
 <script>
 
- var server="" //10.0.2.15"
+ var server=""; 
  
  //------------
  var url= "/get.lua?alert=getAlertLevel()"   
@@ -90,83 +93,12 @@ function getjson() {
  var timerId = setInterval(makeCorsRequest, 1000);
    
 </script>
-<style>
-body {
-  color: white;
-  background-color: black;
-  height: 100%;
-  margin: 0px;
-  padding: 0px; 
-  font-family: arial, helvetica, sans-serif;
-}
-#container {
-  height: 100%
-}
 
 
-img {
-  -webkit-animation: fade 3s infinite;
-  animation: fade 3s infinite;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  
-}
 
-#alertdisplay {
-  display: none;
-   width: 600px;
-   height: 600px;
-   position: absolute;
-   left: 50%;
-   top: 50%; 
-   margin-left: -300px;
-   margin-top: -300px;
-}
-
-#textdisplay {
-  display: block;
-   width: 600px;
-   height: 600px;
-   position: absolute;
-   left: 50%;
-   top: 50%; 
-}
-
-@-webkit-keyframes fade {
-  0% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes fade {
-  0% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-</style>
 </head>
 <body>
 <div id="container">
-<!-- copy alert_overlay.png from resources -->
 <img src="alert_overlay.png" alt="Alert" id="alertdisplay">
 <span id="textdisplay"></span>
 </div>
