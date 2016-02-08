@@ -6,6 +6,6 @@ Enable the web server by editing the _options.ini_ file and adding a port such a
 
 File descriptions
 * **index.html** - main page to select wanted screen
-* **ee_alert.html** - Red/Yellow alert screen
+* **alert.html** - Red/Yellow alert screen
 * **engpresets.html** - Presets for engineering, if webbrowser is in focus you can use the keys 1-5 for triggering buttons
 * **msctrl.html** - Main Screen controls
