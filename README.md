@@ -9,3 +9,7 @@ File descriptions
 * **alert.html** - Red/Yellow alert screen
 * **engpresets.html** - Presets for engineering, if webbrowser is in focus you can use the keys 1-5 for triggering buttons
 * **msctrl.html** - Main Screen controls
+* **gamehelper.html** - Settings for helping a game along, or screw with the players
+  * *Good Luck Engineer* - Breaks things for Engineering
+  * *Fix Systems * - Fixes a Broken ship - best for new crews
+  * *Auto repair on/off* - Turns on & off Auto repair - best for new crews/engineer
