@@ -11,5 +11,5 @@ File descriptions
 * **msctrl.html** - Main Screen controls
 * **gamehelper.html** - Settings for helping a game along, or screw with the players
   * *Good Luck Engineer* - Breaks things for Engineering
-  * *Fix Systems * - Fixes a Broken ship - best for new crews
+  * *Fix Systems* - Fixes a Broken ship - best for new crews
   * *Auto repair on/off* - Turns on & off Auto repair - best for new crews/engineer
