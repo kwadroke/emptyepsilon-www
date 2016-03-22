@@ -1,0 +1,115 @@
+
+<html>
+<head>
+<title>Game Helper Controls</title>
+
+<link href="style.css" media="all" rel="stylesheet" />
+
+</head>
+<body>
+<!--
+ 
+-->
+<span class="txtlbl">Game Helper Controls</span>
+<br /><br />
+<button id="btn1" class="button">Fix Systems</button>
+<br /><br />
+
+<button id="btn2" class="button">Good Luck Engineer</button>
+<br /><br />
+
+<button id="btn3" class="button">Auto Repair On</button>
+<br /><br />
+<button id="btn4" class="button">Auto Repair Off</button>
+<br /><br />
+<!-- 
+<button id="btn5" class="button">SRS</button>
+<br /><br />
+-->
+<button id="btn6" class="button">Post</button>
+<br /><br />
+
+
+<script src="jquery-1.12.0.min.js"></script>
+<script>
+server=""; //"http://localhost:8080";
+
+$(document).ready(function(){
+    $("#btn1").click(function(){ 
+      fixsys();
+    });
+    $("#btn2").click(function(){ 
+      goodluck();
+    });
+    $("#btn3").click(function(){ 
+      autorepair(true);
+    });
+    $("#btn4").click(function(){ 
+      autorepair(false);
+    });
+    $("#btn5").click(function(){ 
+      mssrs();
+    });
+    $("#btn6").click(function(){ 
+      post();
+    });
+});
+
+$(document).keydown(function(e) {
+  if(e.which == 49) { //1
+    fixsys();
+  }
+  if(e.which == 50) { //2
+    goodluck();
+  }
+  if(e.which == 51) { //3
+    autorepair(true);
+  }
+  if(e.which == 52) { //4
+    autorepair(false)
+  }
+  if(e.which == 53) { //5
+    //mssrs();
+  }
+  if(e.which == 54) { //6
+    post();
+  }
+});
+  
+  
+
+  
+  function fixsys() {
+    url = server+'/set.lua?setSystemHealth(%22FrontShield%22,1)&setSystemHeat(%22Reactor%22,0)&setSystemHealth(%22BeamWeapons%22,1)&setSystemHealth(%22RearShield%22,1)&commandSetAutoRepair(true)&commandSetShields(true)';
+    $.get( url );
+  }
+  
+  function goodluck() {
+    url = server+'/set.lua?setHull(50)&setSystemHealth(%22Reactor%22,0.5)&setSystemHealth(%22FrontShield%22,0.5)&setSystemHeat(%22Reactor%22,0.6)&setSystemHealth(%22BeamWeapons%22,0.5)&setSystemHealth(%22RearShield%22,0.5)&commandSetAutoRepair(false)&commandSetShields(false)';
+    $.get( url );
+  }
+  
+  function autorepair(setting) {
+    url = server+'/set.lua?commandSetAutoRepair("'+setting+'")';
+    $.get( url );
+  }
+  
+  function msright() {
+    var mss = "Right";
+    url = server+'/set.lua?commandMainScreenSetting("'+mss+'")';
+    $.get( url );
+  }
+  
+  function mssrs() {
+    var mss = "Tactical";
+    url = server+'/set.lua?commandMainScreenSetting("'+mss+'")';
+    $.get( url );
+  }
+  
+  function post() {
+   var script="
+    $.post( "/exec.lua", { name: "John", time: "2pm" } );
+   }
+</script>
+</body>
+</html>
