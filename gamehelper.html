@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en-US">
+
+<html>
 <head>
-<meta charset="UTF-8">
 <title>Game Helper Controls</title>
 
-<link href="style2.css" media="all" rel="stylesheet" />
+<link href="style.css" media="all" rel="stylesheet" />
 
 </head>
 <body>
@@ -23,13 +22,26 @@
 <br /><br />
 <button id="btn4" class="button">Auto Repair Off</button>
 <br /><br />
-<!-- 
-<button id="btn5" class="button">SRS</button>
+
+<button id="btn5" class="button">Max Energy</button>
 <br /><br />
 
+<!--
 <button id="btn6" class="button">Post</button>
 <br /><br />
 -->
+
+<button id="btn7" class="button">Loose Game</button>
+<br /><br />
+
+<button id="btn8" class="button">Fix Hull</button>
+<br /><br />
+
+<button id="btn9" class="button">Auto Engineer Enable</button>
+<br /><br />
+
+<button id="btn10" class="button">Auto Engineer disable</button>
+<br /><br />
 
 <script src="jquery-1.12.0.min.js"></script>
 <script>
@@ -49,10 +61,22 @@ $(document).ready(function(){
       autorepair(false);
     });
     $("#btn5").click(function(){ 
-      mssrs();
+      maxenergy();
     });
     $("#btn6").click(function(){ 
-      post();
+      //post();
+    });
+    $("#btn7").click(function(){ 
+      loose();
+    });
+    $("#btn8").click(function(){ 
+      fixhull();
+    });
+        $("#btn9").click(function(){ 
+      autoengenable();
+    });
+        $("#btn10").click(function(){ 
+      autoengdisable();
     });
 });
 
@@ -70,11 +94,18 @@ $(document).keydown(function(e) {
     autorepair(false)
   }
   if(e.which == 53) { //5
-    //mssrs();
+    maxenergy();
   }
   if(e.which == 54) { //6
-    post();
+    //post();
   }
+    if(e.which == 55) { //7
+    loose();
+  }
+  if(e.which == 56) { //8
+    fixhull();
+  }
+
 });
   
   
@@ -95,20 +126,46 @@ $(document).keydown(function(e) {
     $.get( url );
   }
   
-  function msright() {
+  function maxenergy() {
     var mss = "Right";
-    url = server+'/set.lua?commandMainScreenSetting("'+mss+'")';
+    url = server+'/set.lua?setEnergyLevel("1000")';
     $.get( url );
   }
-  
+
+  function loose() {
+    var mss = "loose";
+    url = server+'/set.lua?setHull("0")';
+    $.get( url );
+  }
+
+  function fixhull() {
+    var mss = "fixhull";
+    url = server+'/set.lua?setHull("200")';
+    $.get( url );
+  }
+
+
+
   function mssrs() {
     var mss = "Tactical";
     url = server+'/set.lua?commandMainScreenSetting("'+mss+'")';
     $.get( url );
   }
   
+  function autoengenable() {
+    var mss = "autoengenable";
+    url = server+'/set.lua?addCustomMessage("Engineering","AutoEngineer","Auto Engineering has been enabled")&commandSetAutoRepair(true)&setAutoCoolant(true)';
+    $.get( url );
+  }
+  
+  function autoengdisable() {
+    var mss = "autoengdisable";
+    url = server+'/set.lua?addCustomMessage("Engineering","AutoEngineer","Auto Engineering has been disabled")&commandSetAutoRepair(false)&setAutoCoolant(false)';
+    $.get( url );
+  }
+
   function post() {
-   var script="
+   var script="";
     $.post( "/exec.lua", { name: "John", time: "2pm" } );
    }
 </script>

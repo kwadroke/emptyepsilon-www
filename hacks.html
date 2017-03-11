@@ -1,0 +1,115 @@
+
+<html>
+<head>
+<title>Hacks</title>
+
+<link href="style.css" media="all" rel="stylesheet" />
+
+</head>
+<body>
+<!--
+ 
+-->
+<span class="txtlbl">Player Ship Hacking</span>
+<br /><br />
+
+<button id="btn1" class="button">Hack</button>
+<button id="btn2" class="button">Hack Warning</button>
+<br /><br />
+
+<button id="btn3" class="button">Hack 3</button>
+<!--<button id="btn4" class="button">Remove Jump</button>
+<br /><br />
+
+<button id="btn5" class="button">Max Energy to 1500</button>
+<button id="btn6" class="button">Max Energy to 1000</button>
+<br /><br />
+-->
+<!--
+<button id="btn7" class="button">Max Homings to 20</button>
+<button id="btn8" class="button">Max Homings to 10</button>
+<br /><br />
+
+<button id="btn9" class="button">Add Front Torpedo Tube</button>
+
+<br /><br />
+
+<button id="btn10" class="button">Auto Engineer disable</button>
+<br /><br />
+-->
+
+<script src="jquery-1.12.0.min.js"></script>
+<script>
+server=""; //"http://localhost:8080";
+
+$(document).ready(function(){
+    $("#btn1").click(function(){ 
+      hack1();
+    });
+    $("#btn2").click(function(){ 
+      hack2();
+    });
+    $("#btn3").click(function(){ 
+      hack3();
+    });
+    $("#btn4").click(function(){ 
+      removejump();
+    });
+    $("#btn5").click(function(){ 
+      maxenergy1500();
+    });
+    $("#btn6").click(function(){ 
+      maxenergy1000();
+    });
+});
+
+$(document).keydown(function(e) {
+  if(e.which == 49) { //1
+      hack1();
+  }
+  if(e.which == 50) { //2
+      hack2();
+  }
+  if(e.which == 51) { //3
+	hack3();
+  }
+  if(e.which == 52) { //4
+        removejump()
+  }
+  if(e.which == 53) { //5
+    maxenergy1500();
+  }
+  if(e.which == 54) { //6
+    maxenergy1000();
+  }
+    if(e.which == 55) { //7
+    loose();
+  }
+  if(e.which == 56) { //8
+    fixhull();
+  }
+
+});
+  
+  
+
+  
+  function hack1() {
+    url = server+'/set.lua?commandSetShields(false)&commandFireTube("1","0")&commandJump("30.0")&addCustomMessage("Relay","SystemHacked","WARNING! Hack attempt has breached the Firewall. Attempting to block intruder.")';
+    $.get( url );
+  }
+  
+  function hack2() {
+    url = server+'/set.lua?addCustomMessage("Relay","HackBlocked","CAUTION! Hack attempt. Attempt was blocked by Firewall")';
+    $.get( url );
+  }
+  
+  function hack3() {
+    url = server+'/set.lua?addCustomMessage("Mainscreen","HackBlocked","CAUTION! Hack attempt. Attempt was blocked by Firewall")';
+    $.get( url );
+  }
+
+
+</script>
+</body>
+</html>
